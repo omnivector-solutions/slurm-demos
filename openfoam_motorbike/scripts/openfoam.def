@@ -1,0 +1,34 @@
+Bootstrap: docker
+From: jaimefreire/openfoam10:centos-7-mpich-3.2-gcc-5.5.0
+
+%help
+    OpenFOAM v10 with MPICH-3.2, GCC 5.5.0 and Centos 7
+
+%post    
+    # Source bashrc at runtime
+    echo '. /opt/OpenFOAM/OpenFOAM-10/etc/bashrc' >> $SINGULARITY_ENVIRONMENT
+
+%environment
+    export PATH=/opt/gcc-5.5.0/bin:$PATH 
+    export LD_LIBRARY_PATH=/opt/gcc-5.5.0/lib:/opt/gcc-5.5.0/lib64:$LD_LIBRARY_PATH
+    
+    export MPI_DIR=/opt/mpich
+    export MPI_BIN=$MPI_DIR/bin
+    export MPI_LIB=$MPI_DIR/lib
+    export MPI_INC=$MPI_DIR/include
+
+    export PATH=$MPI_BIN:$PATH
+    export LD_LIBRARY_PATH=$MPI_LIB:$LD_LIBRARY_PATH
+        
+    export WM_MPLIB=SYSTEMMPI
+    export MPI_ROOT=/opt/mpich
+    export MPI_ARCH_FLAGS="-DMPICH_SKIP_MPICXX"
+    export MPI_ARCH_INC="-I${MPI_ROOT}/include"
+    export MPI_ARCH_LIBS="-L${MPI_ROOT}/lib -lmpich"
+
+%runscript
+    echo
+    echo "OpenFOAM installation is available under $WM_PROJECT_DIR"
+    echo
+    echo "Usage: singularity exec openfoam10.sif <CMD>"
+    echo

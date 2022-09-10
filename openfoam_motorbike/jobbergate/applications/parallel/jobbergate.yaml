@@ -1,0 +1,5 @@
+jobbergate_config:
+  default_template: job-script-template.py.j2
+  output_directory: .
+application_config:
+  partition: debug

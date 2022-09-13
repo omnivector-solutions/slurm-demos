@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --partition {{data.partition}}
-#SBATCH --nodes=2
-#SBATCH --ntasks=6
-#SBATCH -J motorbike
+#SBATCH -p aws
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH -J motorbike-seq
 #SBATCH --output=/nfs/R-%x.%j.out
 #SBATCH --error=/nfs/R-%x.%j.err
 #SBATCH -t 1:00:00
@@ -40,26 +40,17 @@ singularity exec --bind $PWD:/root $SINGULARITY_IMAGE surfaceFeatures
 # mesh the environment (block around the model)
 singularity exec --bind $PWD:/root $SINGULARITY_IMAGE blockMesh
 
-# decomposition of mesh and initial field data
-# according to the parameters in decomposeParDict located in the system
-# create 6 domains by default
-singularity exec --bind $PWD:/root $SINGULARITY_IMAGE decomposePar -copyZero
-
 # mesh the motorcicle
 # overwrite the new mesh files that are generated
-srun singularity exec --bind $PWD:/root $SINGULARITY_IMAGE snappyHexMesh -overwrite -parallel
+singularity exec --bind $PWD:/root $SINGULARITY_IMAGE snappyHexMesh -overwrite
 
 # write field and boundary condition info for each patch
-srun singularity exec --bind $PWD:/root $SINGULARITY_IMAGE patchSummary -parallel
+singularity exec --bind $PWD:/root $SINGULARITY_IMAGE patchSummary
 
 # potential flow solver
 # solves the velocity potential to calculate the volumetric face-flux field
-srun singularity exec --bind $PWD:/root $SINGULARITY_IMAGE potentialFoam -parallel
+singularity exec --bind $PWD:/root $SINGULARITY_IMAGE potentialFoam
 
 # steady-state solver for incompressible turbutent flows
-srun singularity exec --bind $PWD:/root $SINGULARITY_IMAGE simpleFoam -parallel
-
-# after a case has been run in parallel
-# it can be reconstructed for post-processing
-singularity exec --bind $PWD:/root $SINGULARITY_IMAGE reconstructParMesh -constant
-singularity exec --bind $PWD:/root $SINGULARITY_IMAGE reconstructPar -latestTime
+singularity exec --bind $PWD:/root $SINGULARITY_IMAGE simpleFoam
+ 

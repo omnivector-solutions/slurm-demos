@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --partition {{data.partition}}
+#SBATCH -p aws
 #SBATCH --nodes=2
 #SBATCH --ntasks=6
 #SBATCH -J motorbike
@@ -63,3 +63,4 @@ srun singularity exec --bind $PWD:/root $SINGULARITY_IMAGE simpleFoam -parallel
 # it can be reconstructed for post-processing
 singularity exec --bind $PWD:/root $SINGULARITY_IMAGE reconstructParMesh -constant
 singularity exec --bind $PWD:/root $SINGULARITY_IMAGE reconstructPar -latestTime
+ 

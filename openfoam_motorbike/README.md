@@ -116,7 +116,7 @@ Here, we demonstrate how to run the motorBike example in a single processor (one
 
 For parallel execution, We are gonna need 6 tasks spread across 2 compute nodes (each node has 4 CPUs).
 
-By default, the motorBike is decomposed in 6 processors. This is configurable in the [system/decomposeParDic](https://github.com/OpenFOAM/OpenFOAM-10/blob/master/tutorials/incompressible/simpleFoam/motorBike/system/decomposeParDict#L17) file. The `n` key in the `hierarchicalCoeffs` dictonary in the same [file](https://github.com/OpenFOAM/OpenFOAM-10/blob/master/tutorials/incompressible/simpleFoam/motorBike/system/decomposeParDict#L26) also must be update in a way that the product of the values is equal to the number of processors.
+By default, the motorBike is decomposed in 6 processors. This is configurable in the [system/decomposeParDic](https://github.com/OpenFOAM/OpenFOAM-10/blob/master/tutorials/incompressible/simpleFoam/motorBike/system/decomposeParDict#L17) file. If so, the `n` key in the `hierarchicalCoeffs` dictonary in the same [file](https://github.com/OpenFOAM/OpenFOAM-10/blob/master/tutorials/incompressible/simpleFoam/motorBike/system/decomposeParDict#L26) also must be updated in a way that the product of the values is equal to the number of processors.
 
 1) Create the [run-motorbike-parallel.sh](scripts/run-motorbike-parallel.sh) file.
 
@@ -125,15 +125,15 @@ By default, the motorBike is decomposed in 6 processors. This is configurable in
 `$ sbatch run-motorbike-parallel.sh`
 
 
-### Using Jobbergate
+### Using Jobbergate CLI
 
 Here we are using Jobbergate CLI to submit the jobs to the cloud-deployed cluster.
 
-First, you need login:
+First, we need to login:
 
 `$ jobbergate login`
 
-Once you are successfully logged, you can use Jobbergate to create applications and submit job scripts to the cluster.
+Once we are successfully logged, we can use Jobbergate to create applications and submit job scripts to the cluster.
 
 Find bellow Jobbergate's application's templates for sequential and parallel executions: 
 
@@ -224,7 +224,7 @@ Created Job Submission
 └────────────────────────────┴─────────────────────────────┘
 ```
 
-4) We can follow the job submission status with:
+4) We can see the job submission status with:
 
 `$ jobbergate job-submissions get-one --id <JOB_SUBMISSION_ID>`
 

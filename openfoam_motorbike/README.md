@@ -2,20 +2,20 @@
 
 The motorbike example is an example workload provided by OpenFOAM that simulates airflow over a motorbike and it's rider.
 
+![picture](img/motorbike.png)
+
 This documentation provides a description of how to execute the motorbike example on a slurm cluster.
 
 
-## Create a Singularity Container with OpenFOAM v10
+## Creating a Singularity Container with OpenFOAM v10
 
 [Singularity](https://docs.sylabs.io/guides/3.10/user-guide/introduction.html) is a container platform for HPC environments. 
 
 Using a container, we can build and install OpenFOAM v10 and it's dependencies and package up whatever we need into a single image file.
 
-We can build an OpenFOAM v10 singularity image using a docker or another singularity image as base.
+We can build an OpenFOAM v10 singularity image using docker or another singularity image as base. Here we are gonna use a docker image with OpenFOAM v10 and MPICH 3.2 built on top of a CentOS 7 operating system.
 
-Here we are gonna use a docker image with OpenFOAM v10 and MPICH 3.2 built on top of a CentOS 7 operating system.
-
-In case, you would like to build OpenFOAM v10 from source, the scripts are available below:
+If you would like to build OpenFOAM v10 from source, the scripts are available below:
 
 - [Build OpenFOAM from source - Ubuntu 20.04](scripts/build-openfoam-from-source-ubuntu.sh)
 - [Build OpenFOAM from source - CentOS 7](scripts/build-openfoam-from-source-centos.sh)
@@ -24,11 +24,11 @@ To create a Singularity image for OpenFOAM, we must write a definition file for 
 
 For example, we can create the [`openfoam.def`](scripts/openfoam.def) file.
 
-Now we use the `singularity build` command to build the singularity container image (`openfoam10.sif`)
+Now we use the `singularity build` command to create the singularity container image (`openfoam10.sif`)
 
 `singularity build -f openfoam10.sif openfoam.def`
 
-This `openfoam10.sif` is available for download [here](https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/openfoam10.sif)
+This `openfoam10.sif` is ready and available for download [here](https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/openfoam10.sif).
 
 To download it, we can use:
 
@@ -39,11 +39,13 @@ or
 `wget https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/openfoam10.sif`
 
 
-## Run the motorBike example on a slurm cluster
+## Running the motorBike example on a slurm cluster
 
 With a Singularity image file for OpenFOAM, we can run any OpenFOAM example without the need to have OpenFOAM built on the cluster's system.
 
-To do that we need to access the cluster via ssh or use Jobbergate. Below, It's describe how do run the motorBike example using both approaches.
+To do that we need to access the cluster via ssh or use Jobbergate. It's describe below how do run the motorBike example using both approaches.
+
+### Prerequisites
 
 Make sure the cluster has MPI (to run the motorBike example in parallel) properly installed and configured. As the OpenFOAM in the container image was built along with MPICH, we need to have MPICH available in the cluster as well.
 
@@ -77,6 +79,20 @@ HYDRA build details:
 
 ```
 
+If you do not have MPICH installed, you can easily install it with:
+
+#### In Ubuntu: 
+
+`$ apt-get install -y mpich`
+
+#### In CentOS 7: 
+
+`$ yum install -y mpich-3.2 mpich-3.2-devel`
+
+Here you may need to load the MPICH module:
+
+`$ module load mpi/mpich-3.2-x86_64`
+
 The compute nodes must have a recent version of Singularity installed:
 
 ```
@@ -85,6 +101,22 @@ $ singularity version
 3.10.0
 
 ```
+
+If you do not have Singularity installed, you can easily install it with:
+
+#### In Ubuntu: 
+
+```
+$ wget https://github.com/sylabs/singularity/releases/download/v3.10.2/singularity-ce_3.10.2-focal_amd64.deb
+$ apt-get install -y ./singularity-ce_3.10.2-focal_amd64.deb
+```
+
+#### In CentOS 7: 
+
+`yum install -y https://github.com/sylabs/singularity/releases/download/v3.10.2/singularity-ce-3.10.2-1.el7.x86_64.rpm`
+
+
+### MotorBike code
 
 In this tutorial, we are using OpenFOAM v10. A list of several OpenFoam v10 tutorials can be found in https://github.com/OpenFOAM/OpenFOAM-10
 
@@ -98,7 +130,7 @@ The job scripts below execute a few commands to:
 
 Note that the commands run in the `/nfs` directory, which is shared between the cluster nodes.
 
-### Directly on the cluster
+### Running directly on the cluster
 
 Inside the cloud-deployed (or any other) slurm cluster, we just need to create a job script file and submit it, like:
 

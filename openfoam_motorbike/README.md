@@ -292,5 +292,15 @@ For example:
 
 `$ jobbergate applications create --name motorbike-parallel --application-path jobbergate/applications/parallel --application-desc "OpenFOAM v10 MotorBike Parallel"`
 
+## Visualisation
+
+To view the result after computation, we must download the `motorBike` directory to our local system and run the `paraFoam` command inside that directory.
+
+It will open up the resulting mesh on Paraview.
+
+OBS.: To do that, we need to have OpenFOAM installed along with Paraview in the local system.
+
+
+
 
 

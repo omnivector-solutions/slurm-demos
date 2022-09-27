@@ -6,7 +6,6 @@ The motorbike example is an example workload provided by OpenFOAM that simulates
 
 This documentation provides a description of how to execute the motorbike example on a slurm cluster.
 
-
 ## Creating a Singularity Container with OpenFOAM v10
 
 [Singularity](https://docs.sylabs.io/guides/3.10/user-guide/introduction.html) is a container platform for HPC environments. 
@@ -26,17 +25,24 @@ For example, we can create the [`openfoam.def`](scripts/openfoam.def) file.
 
 Now we use the `singularity build` command to create the singularity container image (`openfoam10.sif`)
 
-`singularity build -f openfoam10.sif openfoam.def`
+```
+singularity build -f openfoam10.sif openfoam.def
+```
+
 
 This `openfoam10.sif` is ready and available for download [here](https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/openfoam10.sif).
 
 To download it, we can use:
 
-`curl -o openfoam10.sif --location "https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/openfoam10.sif"`
+```
+curl -o openfoam10.sif --location "https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/openfoam10.sif"
+```
 
 or 
 
-`wget https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/openfoam10.sif`
+```
+wget https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/openfoam10.sif
+```
 
 
 ## Running the motorBike example on a slurm cluster
@@ -83,15 +89,21 @@ If you do not have MPICH installed, you can easily install it with:
 
 #### In Ubuntu: 
 
-`$ apt-get install -y mpich`
+```
+$ apt-get install -y mpich
+```
 
 #### In CentOS 7: 
 
-`$ yum install -y mpich-3.2 mpich-3.2-devel`
+```
+$ yum install -y mpich-3.2 mpich-3.2-devel
+```
 
 Here you may need to load the MPICH module:
 
-`$ module load mpi/mpich-3.2-x86_64`
+```
+$ module load mpi/mpich-3.2-x86_64
+```
 
 The compute nodes must have a recent version of Singularity installed:
 
@@ -113,7 +125,9 @@ $ apt-get install -y ./singularity-ce_3.10.2-focal_amd64.deb
 
 #### In CentOS 7: 
 
-`yum install -y https://github.com/sylabs/singularity/releases/download/v3.10.2/singularity-ce-3.10.2-1.el7.x86_64.rpm`
+```
+$ yum install -y https://github.com/sylabs/singularity/releases/download/v3.10.2/singularity-ce-3.10.2-1.el7.x86_64.rpm
+```
 
 
 ### MotorBike code
@@ -142,7 +156,9 @@ Here, we demonstrate how to run the motorBike example in a single processor (one
 
 2) Submit the job: 
 
-`$ sbatch run-motorbike-sequential.sh`
+```
+$ sbatch run-motorbike-sequential.sh
+```
 
 #### Parallel (MPI)
 
@@ -154,7 +170,9 @@ By default, the motorBike is decomposed in 6 processors. This is configurable in
 
 2) Submit the job: 
 
-`$ sbatch run-motorbike-parallel.sh`
+```
+$ sbatch run-motorbike-parallel.sh
+```
 
 
 ### Using Jobbergate CLI
@@ -163,7 +181,9 @@ Here we are using Jobbergate CLI to submit the jobs to the cloud-deployed cluste
 
 First, we need to login:
 
-`$ jobbergate login`
+```
+$ jobbergate login
+```
 
 Once we are successfully logged, we can use Jobbergate to create applications and submit job scripts to the cluster.
 
@@ -179,11 +199,15 @@ Follow the steps bellow to submit jobs for execution in a ARMADA cluster using J
 
 1) Create an application
 
-`$ jobbergate applications create --name <APPLICATION_NAME> --application-path <PATH/TO/APPLICATION_TEMPLATE> --application-desc <APPLICATION_DESCRIPTION>`
+```
+$ jobbergate applications create --name <APPLICATION_NAME> --application-path <PATH/TO/APPLICATION_TEMPLATE> --application-desc <APPLICATION_DESCRIPTION>
+```
 
 For example:
 
-`$ jobbergate applications create --name motorbike-sequential --application-path jobbergate/applications/sequential --application-desc "OpenFOAM v10 MotorBike Sequential"`
+```
+$ jobbergate applications create --name motorbike-sequential --application-path jobbergate/applications/sequential --application-desc "OpenFOAM v10 MotorBike Sequential"
+```
 
 It's going to return something like:
 
@@ -204,15 +228,21 @@ It's going to return something like:
 
 2) Create a job script
 
-`$ jobbergate job-scripts create --name <JOB_SCRIPT_NAME> --application-id <APPLICATION_ID>`
+```
+$ jobbergate job-scripts create --name <JOB_SCRIPT_NAME> --application-id <APPLICATION_ID>
+```
 
 For example:
 
-`$ jobbergate job-scripts create --name job-motorbike-sequential --application-id 121`
+```
+$ jobbergate job-scripts create --name job-motorbike-sequential --application-id 121
+```
 
 It's gonna ask you to choose the partition's name. Type `aws` and enter.
 
-`[?] Choose a partition: aws`
+```
+[?] Choose a partition: aws
+```
 
 It's going to return something like:
 
@@ -231,11 +261,15 @@ Created Job Script
 
 3) Create a job submission
 
-`$ jobbergate job-submissions create --name <SUBMISSION_NAME> --description <SUBMISSION_DESCRIPTION> --job-script-id <JOB_SCRIPT_ID> --cluster-name <CLUSTER_NAME>`
+```
+$ jobbergate job-submissions create --name <SUBMISSION_NAME> --description <SUBMISSION_DESCRIPTION> --job-script-id <JOB_SCRIPT_ID> --cluster-name <CLUSTER_NAME>
+```
 
 For example:
 
-`$ jobbergate job-submissions create --name submit-motorbike-sequential --description "Run motorBike sequential" --job-script-id 78 --cluster-name aws-cluster-1`
+```
+$ jobbergate job-submissions create --name submit-motorbike-sequential --description "Run motorBike sequential" --job-script-id 78 --cluster-name aws-cluster-1
+```
 
 It's going to return something like:
 
@@ -258,11 +292,15 @@ Created Job Submission
 
 4) We can see the job submission status with:
 
-`$ jobbergate job-submissions get-one --id <JOB_SUBMISSION_ID>`
+```
+$ jobbergate job-submissions get-one --id <JOB_SUBMISSION_ID>
+```
 
 For example:
 
-`$ jobbergate job-submissions get-one --id 37`
+```
+$ jobbergate job-submissions get-one --id 37
+```
 
 It's going to return something like:
 
@@ -290,7 +328,9 @@ The steps are the same as described above for the sequential execution. The only
 
 For example:
 
-`$ jobbergate applications create --name motorbike-parallel --application-path jobbergate/applications/parallel --application-desc "OpenFOAM v10 MotorBike Parallel"`
+```
+$ jobbergate applications create --name motorbike-parallel --application-path jobbergate/applications/parallel --application-desc "OpenFOAM v10 MotorBike Parallel"
+```
 
 ## Visualisation
 
@@ -305,5 +345,10 @@ If you do not have OpenFOAM installed, but you have Paraview, you must create a 
 touch motorBike.foam
 ```
 
+## Configure a local LXD-deployed slurm cluster with charms
+
+You can deploy a local slurm cluster using Juju and LXD. 
+
+[Here](charms-lxd-slurm-cluster) we show how set up the local cluster to run the motorBike example.
 
 

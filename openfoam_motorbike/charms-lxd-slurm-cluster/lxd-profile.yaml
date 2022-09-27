@@ -1,0 +1,9 @@
+config:
+  security.privileged: "true"
+description: ""
+devices:
+  shared:
+    path: /nfs
+    source: /home/ubuntu/nfs-in-host
+    type: disk
+name: shared

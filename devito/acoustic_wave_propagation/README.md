@@ -2,7 +2,7 @@
 
 The implementation used in this example is based on [Devito's seismic modeling tutorial](https://github.com/devitocodes/devito/blob/master/examples/seismic/tutorials/01_modelling.ipynb). A detailed description of the problem and an introduction to seismic modeling can be found over there.
 
-The goal here is to run the simulation of the acoustic wave propagation (a.k.a, forward modeling), using Devito.
+The goal here is to run the simulation of the acoustic wave propagation (a.k.a, forward modeling) using Devito.
 
 ## Source code
 

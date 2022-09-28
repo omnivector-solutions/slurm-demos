@@ -1,0 +1,19 @@
+Bootstrap: docker
+From: python:3.8-slim-buster
+
+%help
+    Devito Project
+
+%post    
+   apt-get update
+   apt-get install -y git gcc g++
+   cd /opt
+   git clone https://github.com/devitocodes/devito.git
+   cd devito
+   pip install -e .
+   pip install matplotlib   
+
+%runscript
+    echo
+    echo "Usage: singularity exec devito.sif <commands>"
+    echo

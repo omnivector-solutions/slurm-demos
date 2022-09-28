@@ -2,7 +2,7 @@
 
 Devito's Singularity image is available in [https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/devito.sif](https://omnivector-public-assets.s3.us-west-2.amazonaws.com/singularity/devito.sif).
 
-You can download it usig `curl`, `wget` or any simular tool.
+You can download it using `curl`, `wget` or any similar tool.
 
 For example:
 

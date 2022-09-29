@@ -82,3 +82,6 @@ singularity exec --bind $PWD:$HOME $SINGULARITY_SANDBOX_PATH potentialFoam
 
 # steady-state solver for incompressible turbutent flows
 singularity exec --bind $PWD:$HOME $SINGULARITY_SANDBOX_PATH simpleFoam
+
+# create a .foam file to render the results in Paraview
+touch motorbike.foam 

@@ -4,7 +4,7 @@
 set -eux
 
 # clone the repositories
-git clone https://github.com/omnivector-solutions/slurm-charms.git -b mpi_install
+git clone https://github.com/omnivector-solutions/slurm-charms.git
 git clone https://github.com/omnivector-solutions/slurm-bundles.git
 
 

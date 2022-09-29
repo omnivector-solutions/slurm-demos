@@ -92,3 +92,6 @@ srun --mpi=pmi2 singularity exec --bind $PWD:$HOME $SINGULARITY_SANDBOX_PATH sim
 # it can be reconstructed for post-processing
 singularity exec --bind $PWD:$HOME $SINGULARITY_SANDBOX_PATH reconstructParMesh -constant
 singularity exec --bind $PWD:$HOME $SINGULARITY_SANDBOX_PATH reconstructPar -latestTime
+
+# create a .foam file to render the results in Paraview
+touch motorbike.foam

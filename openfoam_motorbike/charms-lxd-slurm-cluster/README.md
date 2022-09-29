@@ -47,9 +47,6 @@ git clone https://github.com/omnivector-solutions/slurm-charms.git
 
 # access the slurm-charms directory
 cd slurm-charms
-
-# checkout to mpi_install branch
-git checkout mpi_install
 ```
 
 2) Add the file [lxd-profile.yaml](lxd-profile.yaml) in `slurm-charms/charm-slurmd` directory:

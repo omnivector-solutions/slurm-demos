@@ -28,7 +28,7 @@ sudo lxc network set lxdbr0 ipv6.address none
 sudo snap install juju --classic
 
 # bootstrap a local LXD Juju controller
-sudo bootstrap localhost
+juju bootstrap localhost
 ```
 
 3) Charmcraft

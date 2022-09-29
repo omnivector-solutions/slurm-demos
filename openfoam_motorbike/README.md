@@ -6,6 +6,17 @@ The motorbike example is an example workload provided by OpenFOAM that simulates
 
 This documentation provides a description of how to execute the motorbike example on a slurm cluster.
 
+Summary:
+
+- [Creating a Singularity Container with OpenFOAM v10](#creating-a-singularity-container-with-openfoam-v10)
+- [Running the motorBike example on a slurm cluster](#running-the-motorbike-example-on-a-slurm-cluster)
+    - [Prerequisites](#prerequisites)
+    - [MotorBike code](#motorbike-code)  
+    - [Running directly on the cluster](#running-directly-on-the-cluster)
+    - [Using Jobbergate CLI](#using-jobbergate-cli)
+- [Visualisation](#visualisation)
+- [Configure a local LXD-deployed slurm cluster with charms](#configure-a-local-lxd-deployed-slurm-cluster-with-charms)
+
 ## Creating a Singularity Container with OpenFOAM v10
 
 [Singularity](https://docs.sylabs.io/guides/3.10/user-guide/introduction.html) is a container platform for HPC environments. 

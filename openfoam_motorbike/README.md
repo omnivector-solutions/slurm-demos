@@ -340,7 +340,7 @@ It will open up the resulting mesh on Paraview.
 
 OBS.: To do that, we need to have OpenFOAM installed along with Paraview in the local system.
 
-If you do not have OpenFOAM installed, but you have Paraview, you must create a file inside `motorBike` direcotiry and named it `<ANY_FILE_NAME>.foam` (no content needed) and open it in Paraview, which will automatically identify the result files inside the folder and render them:
+If you do not have OpenFOAM installed, but you have Paraview, you must create a file inside `motorBike` directory and named it `<ANY_FILE_NAME>.foam` (no content needed) and open it in Paraview, which will automatically identify the result files inside the folder and render them:
 ```
 touch motorBike.foam
 ```

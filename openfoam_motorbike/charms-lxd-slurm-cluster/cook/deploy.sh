@@ -9,7 +9,7 @@ git clone https://github.com/omnivector-solutions/slurm-bundles.git
 
 
 # Create the directory that will house shared files (fake nfs for containers)
-mkdir -p /srv/slurm-lxd-demo
+sudo mkdir -p /srv/slurm-lxd-demo
 sudo chmod -R 777 /srv/slurm-lxd-demo
 
 # Create the lxd-profile that will provide an shared storage and enabled privileged mode

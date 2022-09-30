@@ -4,8 +4,14 @@
 set -eux
 
 # clone the repositories
-git clone https://github.com/omnivector-solutions/slurm-charms.git
-git clone https://github.com/omnivector-solutions/slurm-bundles.git
+if [[ ! -d slurm-charms ]]
+then
+  git clone https://github.com/omnivector-solutions/slurm-charms.git
+fi
+if [[ ! -d slurm-bundles ]]
+then
+  git clone https://github.com/omnivector-solutions/slurm-bundles.git
+fi
 
 
 # Create the directory that will house shared files (fake nfs for containers)
@@ -26,7 +32,24 @@ name: shared
 EOY
 
 # Build the slurm-charms
-cd slurm-charms && make charms && cd ..
+cd slurm-charms
+if [[ ! -f slurmctld.charm ]]
+then
+  make slurmctld
+fi
+if [[ ! -f slurmdbd.charm ]]
+then
+  make slurmdbd
+fi
+if [[ ! -f slurmd.charm ]]
+then
+  make slurmd
+fi
+if [[ ! -f slurmrestd.charm ]]
+then
+  make slurmrestd
+fi
+cd ..
 
 cd slurm-bundles
 make resources
@@ -35,7 +58,7 @@ juju deploy ./slurm-core/bundle.yaml \
             --overlay ./slurm-core/clouds/lxd.yaml \
             --overlay ./slurm-core/series/focal.yaml \
             --overlay ./slurm-core/charms/local-development.yaml --force
-juju add-unit slurmd
+#juju add-unit slurmd
 
 # Go back to where we started
 cd ../

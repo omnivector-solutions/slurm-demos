@@ -1,8 +1,7 @@
-# Demo Video Steps
-In the creation of this demo/presentation, there will be 5 separate video segments.
+# Scripts to install prerequisites, deploy the slurm charms and submit the job
 
-1) `./deploy.sh`
-2) wjst - watch the deploy stand up
-3) `./post-deploy.sh`
-4) `./submit-job.sh`
-5) Install paraview and view results`./view-results.sh`
+1) [prereqs.sh](prereqs.sh)
+2) [deploy.sh](deploy.sh)
+3) [post-deploy.sh](post-deploy.sh)
+4) [submit-job.sh](submit-job.sh)
+5) [view-results.sh](view-results.sh)

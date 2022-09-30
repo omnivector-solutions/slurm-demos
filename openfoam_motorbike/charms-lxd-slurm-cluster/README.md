@@ -1,6 +1,8 @@
 # Run the OpenFOAM motorBike on an LXD-deployed Slurm Cluster
 
-Describe how to set up an LXD-deployed slurm cluster to run the OpenFOAM motorBike example. 
+Describe how to set up an LXD-deployed slurm cluster to run the OpenFOAM motorBike example.
+
+You can also try the scripts available in the [cook](cook) folder.
 
 ## Prerequisites
 

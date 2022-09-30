@@ -58,7 +58,9 @@ juju deploy ./slurm-core/bundle.yaml \
             --overlay ./slurm-core/clouds/lxd.yaml \
             --overlay ./slurm-core/series/focal.yaml \
             --overlay ./slurm-core/charms/local-development.yaml --force
-#juju add-unit slurmd
+
+# add one more slurmd unit
+juju add-unit slurmd
 
 # Go back to where we started
 cd ../

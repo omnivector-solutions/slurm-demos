@@ -1,6 +1,8 @@
 # Run the OpenFOAM motorBike on an LXD-deployed Slurm Cluster
 
-Describe how to set up an LXD-deployed slurm cluster to run the OpenFOAM motorBike example. 
+Describe how to set up an LXD-deployed slurm cluster to run the OpenFOAM motorBike example.
+
+You can also try the scripts available in the [cook](cook) folder.
 
 ## Prerequisites
 
@@ -47,9 +49,6 @@ git clone https://github.com/omnivector-solutions/slurm-charms.git
 
 # access the slurm-charms directory
 cd slurm-charms
-
-# checkout to mpi_install branch
-git checkout mpi_install
 ```
 
 2) Add the file [lxd-profile.yaml](lxd-profile.yaml) in `slurm-charms/charm-slurmd` directory:
